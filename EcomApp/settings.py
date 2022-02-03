@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-0vba@ccoqfsw24$*rr6-8%3(+j=)6rnf^fl-m1fyxpl84tu-ca
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CURRENT_HOST = 'https://9c69-2001-8a0-6049-1700-75ad-2677-2c28-f17e.ngrok.io'
+CURRENT_HOST = 'https://portugarte.herokuapp.com'
 
 # Application definition
 
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -177,3 +179,6 @@ PAYPAL_CLIENT_SECRET = "EMpTCP7pNlyBFQp2tvSzU1EnioHi_MI5YRObtqpwaKjBxcXdd4a5uSLj
 PAYPAL_WEBHOOK_ID = "3CS769170K668814F"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+django_heroku.settings(locals())
+
