@@ -1,1 +1,1 @@
-web: gunicorn lawApp.wsgi
+web: gunicorn EcomApp.wsgi
