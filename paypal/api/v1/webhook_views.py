@@ -1,6 +1,7 @@
 import json
+from datetime import timedelta
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -8,6 +9,8 @@ from django.conf import settings
 from paypal.models import PayPalOrder, PayPalPayer, PayPalShippingAddress
 from store.models import Order, PrePaymentOrder, OrderItem
 import requests
+
+from store.order_notification_html_template import template_2
 
 
 @require_http_methods(['POST'])
@@ -34,13 +37,19 @@ def paypal_webhooks(request):
         if webhook_event['event_type'] == 'CHECKOUT.ORDER.APPROVED':
             paypal_order = PayPalOrder.objects.get(order_id=webhook_event['resource']['id'])
             pre_payment_order = PrePaymentOrder.objects.get(paypal_order=paypal_order)
-
-            send_mail('Olá {}'.format(pre_payment_order.full_name),
-                      'Compra feita no valor de {}'.format(paypal_order.purchase_units.all()[0].value),
-                      'info@portugarte.pt',
-                      [pre_payment_order.email],
-                      fail_silently=False
-                      )
+            subject, from_email, to = 'Portugarte - Confirmação de compra', 'info@portugarte.pt', pre_payment_order.email
+            html_content = template_2.format(
+                paypal_order.order_id,
+                paypal_order.purchase_units.all()[0].items.all().count(),
+                paypal_order.purchase_units.all()[0].value,
+                paypal_order.purchase_units.all()[0].value,
+                paypal_order.order.city + ' ' + paypal_order.order.country,
+                paypal_order.order.address_line_1,
+                paypal_order.order.postcode,
+                (paypal_order.order.creation_date + timedelta(days=7)).date())
+            msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
             send_mail('Uma compra no valor de {} foi feita'.format(paypal_order.purchase_units.all()[0].value),
                       'Compra feita no valor de {}'.format(paypal_order.purchase_units.all()[0].value),
                       'info@portugarte.pt',
