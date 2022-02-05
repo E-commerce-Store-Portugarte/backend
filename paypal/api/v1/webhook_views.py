@@ -36,7 +36,7 @@ def paypal_webhooks(request):
             pre_payment_order = PrePaymentOrder.objects.get(paypal_order=paypal_order)
 
             send_mail('Olá {}'.format(pre_payment_order.full_name),
-                      'Compra feita no valor de {}'.format(paypal_order.purchase_units[0].value),
+                      'Compra feita no valor de {}'.format(paypal_order.purchase_units.all()[0].value),
                       'info@portugarte.pt',
                       [pre_payment_order.email],
                       fail_silently=False
