@@ -41,6 +41,12 @@ def paypal_webhooks(request):
                       [pre_payment_order.email],
                       fail_silently=False
                       )
+            send_mail('Uma compra no valor de {} foi feita'.format(paypal_order.purchase_units.all()[0].value),
+                      'Compra feita no valor de {}'.format(paypal_order.purchase_units.all()[0].value),
+                      'info@portugarte.pt',
+                      ['portugarte@gmail.com'],
+                      fail_silently=False
+                      )
             api_data = paypal_order.capture()
             if api_data['status'] == 'COMPLETED':
                 payer_object, created = PayPalPayer.objects.get_or_create(
