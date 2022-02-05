@@ -8,7 +8,6 @@ User = get_user_model()
 
 
 class PayPalPayer(models.Model):
-
     user = models.ForeignKey(User, related_name='paypal_payer', on_delete=models.SET_NULL, null=True)
     given_name = models.CharField(max_length=140)
     surname = models.TextField(max_length=140, null=True, blank=True)
@@ -25,7 +24,6 @@ class PayPalPayer(models.Model):
 
 
 class PayPalOrder(models.Model):
-
     STATUS_OPTIONS = [
         ('COMPLETED', 'COMPLETED'),  # When the payment is captured and the money is received
         ('APPROVED', 'APPROVED'),  # When user completes a payment
@@ -49,7 +47,7 @@ class PayPalOrder(models.Model):
         return post(
             url="https://api.sandbox.paypal.com/v2/checkout/orders/{}/capture".format(self.order_id),
             auth=(settings.PAYPAL_CLIENT_ID, settings.PAYPAL_CLIENT_SECRET),
-            json={ "payment_source_response": "paypal" }
+            json={"payment_source_response": "paypal"}
         ).json()
 
     def __str__(self):
@@ -57,7 +55,6 @@ class PayPalOrder(models.Model):
 
 
 class PayPalMerchant(models.Model):
-
     email_address = models.EmailField()
     paypal_id = models.CharField(max_length=30, unique=True)
     brand_name = models.CharField(max_length=127)
@@ -71,7 +68,6 @@ class PayPalMerchant(models.Model):
 
 
 class PayPalShippingAddress(models.Model):
-
     address_line_1 = models.TextField(null=True, blank=True)
     address_line_2 = models.TextField(null=True, blank=True)
     admin_area_2 = models.TextField(null=True, blank=True)
@@ -88,7 +84,6 @@ class PayPalShippingAddress(models.Model):
 
 
 class PayPalPurchaseUnit(models.Model):
-
     reference_id = models.CharField(max_length=256, default='default')
     currency_code = models.CharField(max_length=3)
     value = models.DecimalField(max_digits=6, decimal_places=2)
@@ -105,7 +100,6 @@ class PayPalPurchaseUnit(models.Model):
 
 
 class PayPalItem(models.Model):
-
     purchase_unit = models.ForeignKey(PayPalPurchaseUnit, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.PositiveSmallIntegerField()

@@ -1,5 +1,6 @@
 import json
 
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -32,9 +33,16 @@ def paypal_webhooks(request):
     if response.json()['verification_status'] == 'SUCCESS':
         if webhook_event['event_type'] == 'CHECKOUT.ORDER.APPROVED':
             paypal_order = PayPalOrder.objects.get(order_id=webhook_event['resource']['id'])
+            pre_payment_order = PrePaymentOrder.objects.get(paypal_order=paypal_order)
+
+            send_mail('Olá {}'.format(pre_payment_order.full_name),
+                      'Compra feita no valor de {}'.format(paypal_order.purchase_units[0].value),
+                      'info@portugarte.pt',
+                      [pre_payment_order.email],
+                      fail_silently=False
+                      )
             api_data = paypal_order.capture()
             if api_data['status'] == 'COMPLETED':
-                pre_payment_order = PrePaymentOrder.objects.get(paypal_order=paypal_order)
                 payer_object, created = PayPalPayer.objects.get_or_create(
                     user=pre_payment_order.buyer,
                     given_name=webhook_event['resource']['payer']['name']['given_name'],

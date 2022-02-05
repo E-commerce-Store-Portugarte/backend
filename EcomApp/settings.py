@@ -180,5 +180,13 @@ PAYPAL_WEBHOOK_ID = "3CS769170K668814F"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_HOST = 'mail.portugarte.pt'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'info@portugarte.pt'
+EMAIL_HOST_PASSWORD = '!jZmJBPB98YV'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+
 django_heroku.settings(locals())
 
