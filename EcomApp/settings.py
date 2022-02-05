@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
     'rest_framework',
+    'storages',
 
     'adminStore.apps.AdminStoreConfig',
     'store.apps.StoreConfig',
@@ -118,10 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -132,13 +129,8 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
+MEDIA_ROOT = '/media/'
+MEDIA_URL = 'https://portugarte.pt/mercadinho/imagens/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static/']
@@ -186,6 +178,9 @@ EMAIL_HOST_USER = 'info@portugarte.pt'
 EMAIL_HOST_PASSWORD = '!jZmJBPB98YV'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
+FTP_STORAGE_LOCATION = 'ftp://mercadinho@portugarte.pt:NunoAndre2004@ftp.portugarte.pt:21'
 
 
 django_heroku.settings(locals())
