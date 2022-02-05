@@ -1,5 +1,5 @@
 import json
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.http import HttpResponse
@@ -43,10 +43,10 @@ def paypal_webhooks(request):
                 paypal_order.purchase_units.all()[0].items.all().count(),
                 paypal_order.purchase_units.all()[0].value,
                 paypal_order.purchase_units.all()[0].value,
-                paypal_order.order.city + ' ' + paypal_order.order.country,
-                paypal_order.order.address_line_1,
-                paypal_order.order.postcode,
-                (paypal_order.order.creation_date + timedelta(days=7)).date())
+                pre_payment_order.city + ' ' + pre_payment_order.country,
+                pre_payment_order.address_line_1,
+                pre_payment_order.postcode,
+                (datetime.now() + timedelta(days=7)).date())
             msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
