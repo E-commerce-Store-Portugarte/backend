@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('store.urls')),
+    path('email/', include('emailVerification.urls')),
     path('api/v1/paypal/', include('paypal.api.v1.urls')),
     path('admin/', include('adminStore.urls')),
     path('admin/', admin.site.urls),

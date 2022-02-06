@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
-from store.models import Product, Order, OrderItem, BasketItem
+from store.models import Product, Order, BasketItem
 from store.api.v1.serializers import ProductSerializer, OrderSerializer, BasketItemSerializer
 
 NOT_AUTHENTICATED_ERROR = Response(data={"error": "You are not authenticated"}, status=401)

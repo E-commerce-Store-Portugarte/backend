@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
     'adminStore.apps.AdminStoreConfig',
     'store.apps.StoreConfig',
+    'emailVerification.apps.EmailVerificationConfig',
     'paypal.apps.PaypalConfig',
 
 ]
@@ -163,7 +164,7 @@ CORS_ALLOW_CREDENTIALS = True
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 PAYPAL_CLIENT_ID = "AbYDzx1AT2t3SDtL8MiowuuGaSJgLKfAJmnvDVCEcZhiW36I2oTgCt_IE3OGRn85YLwIWZgmS9XvgDIS"

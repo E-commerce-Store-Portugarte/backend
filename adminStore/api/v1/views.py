@@ -1,4 +1,4 @@
-from rest_framework.viewsets import ModelViewSet, ViewSet
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 from rest_auth.views import LoginView
@@ -19,7 +19,6 @@ class ProductViewSet(ModelViewSet):
 
     def get(self, request, pk):
         return Response(ProductSerializer(Product.objects.get(pk=pk)).data, status=200)
-
 
     def update(self, request, pk):
         product = Product.objects.get(pk=pk)
