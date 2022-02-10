@@ -24,13 +24,10 @@ urlpatterns = [
     path('email/', include('emailVerification.urls')),
     path('api/v1/paypal/', include('paypal.api.v1.urls')),
     path('admin/', include('adminStore.urls')),
-    path('admin/', admin.site.urls),
+    path('django-admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

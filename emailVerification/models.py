@@ -7,8 +7,6 @@ from EcomApp import settings
 
 User = get_user_model()
 
-# Create your models here.
-
 
 def generate_verification_token():
     return uuid.uuid4()
