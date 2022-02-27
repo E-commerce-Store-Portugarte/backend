@@ -93,6 +93,8 @@ class BasketItem(models.Model):
         return float(self.product.price * self.amount)
 
 
+class SupportTicket(models.Model):
 
-
-
+    name = models.CharField(max_length=128, blank=False, null=False)
+    content = models.TextField()
+    creation_date = models.DateTimeField(auto_now_add=True)

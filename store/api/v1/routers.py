@@ -59,3 +59,15 @@ class BasketItemRouter(SimpleRouter):
             initkwargs={}
         ),
     ]
+
+class SupportTicketRouter(SimpleRouter):
+
+    routes = [
+        Route(
+            url=r'^{prefix}/$',
+            mapping={'post': 'create'},
+            name='{basename}-list',
+            detail=False,
+            initkwargs={}
+        ),
+    ]

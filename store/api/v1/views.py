@@ -1,6 +1,7 @@
+from django.core.mail import send_mail
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
-from store.models import Product, Order, BasketItem
+from store.models import Product, Order, BasketItem, SupportTicket
 from store.api.v1.serializers import ProductSerializer, OrderSerializer, BasketItemSerializer
 
 NOT_AUTHENTICATED_ERROR = Response(data={"error": "You are not authenticated"}, status=401)
@@ -59,3 +60,11 @@ class BasketItemViewSet(ViewSet):
             basket_item.amount = request.data['amount']
             basket_item.save()
             return Response(BasketItemSerializer(BasketItem.objects.filter(user=request.user), many=True).data, status=200)
+
+
+class SupportTicketViewSet(ViewSet):
+
+    def create(self, request):
+        st = SupportTicket.objects.create(name=request.data['name'], content=request.data['message'])
+        send_mail("Mensagem Recebida", st.content, "info@portugarte.pt", ["pauloblemos@gmail.com"])
+        return Response(data={"name": st.name, "message": st.content}, status=201)
