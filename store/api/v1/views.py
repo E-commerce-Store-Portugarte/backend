@@ -13,7 +13,8 @@ class ProductViewSet(ViewSet):
         return Response(ProductSerializer(Product.objects.get(pk=kwargs['pk'])).data, status=200)
 
     def list(self, request, *args, **kwargs):
-        return Response(ProductSerializer(Product.objects.all(), many=True).data, status=200)
+        context = {"abbreviation_length": int(request.GET.get("abbreviation_length"))}
+        return Response(ProductSerializer(Product.objects.all(), many=True, context=context).data, status=200)
 
 
 class OrderViewSet(ViewSet):

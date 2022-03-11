@@ -5,14 +5,18 @@ from store.models import Product, Order, OrderItem, BasketItem
 class ProductSerializer(serializers.ModelSerializer):
 
     image = serializers.SerializerMethodField(read_only=True)
+    abbreviated_description = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Product
-        fields = ['name', 'id', 'description', 'stock', 'price', 'image']
+        fields = ['name', 'id', 'abbreviated_description', 'description', 'stock', 'price', 'image']
 
     def get_image(self, product):
         return product.productimage_set.all()[0].image.url
         # return [obj.image.url for obj in product.productimage_set.all()]
+
+    def get_abbreviated_description(self, product):
+        return product.description[:self.context["abbreviation_length"]]
 
 
 class BasketItemSerializer(serializers.ModelSerializer):
