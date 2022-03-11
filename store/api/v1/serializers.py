@@ -16,7 +16,11 @@ class ProductSerializer(serializers.ModelSerializer):
         # return [obj.image.url for obj in product.productimage_set.all()]
 
     def get_abbreviated_description(self, product):
-        return product.description[:self.context["abbreviation_length"]]
+        try:
+            abbreviation_length = self.context["abbreviation_length"]
+        except KeyError:
+            abbreviation_length = 170
+        return product.description[:abbreviation_length]
 
 
 class BasketItemSerializer(serializers.ModelSerializer):
