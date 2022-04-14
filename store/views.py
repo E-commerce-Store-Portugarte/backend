@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 
-def home(request):
+def home(request, id=None):
     """
     print(request.GET['cmd'])
     if request.GET['target'] == 'terminal':

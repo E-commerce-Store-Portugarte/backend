@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0vba@ccoqfsw24$*rr6-8%3(+j=)6rnf^fl-m1fyxpl84tu-ca'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CURRENT_HOST = 'https://portugarte.herokuapp.com'
@@ -167,9 +167,9 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-PAYPAL_CLIENT_ID = "AXERakAjvhaK-11M_0oyBB63i9vJe2qO2OMk3laAEMgdhuk5ED0Rh6NgHfIdcBsQLftOXvMjVVBT4CDm"
-PAYPAL_CLIENT_SECRET = "EEGo2OaGG7-MSOm_nfq7iUaGHS3uKzDTsrD-al9-cFmOCnMGORXrfHOOOtX4_H3wrwXKgwqBQYaiJ5qw"
-PAYPAL_WEBHOOK_ID = "7RE535968W824514B"
+PAYPAL_CLIENT_ID = "AaixeY6Q_ocBrjiN-7_gy2yz2ckLwQPNZMymMydrD3sBbjItI4Dvnz6tvyqRh-x1ns092VVdsV5fTaiX"
+PAYPAL_CLIENT_SECRET = "EJrG4ZIZ0CFR7aR2IwImKkNyqVRHPUVkXOEwwViFmjY7JwXZAO32qpvL1rr48pjyPVD_sqNPohGH2uLw"
+PAYPAL_WEBHOOK_ID = "7FA8294775054202P"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
